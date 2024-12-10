@@ -1,0 +1,118 @@
+[gd_scene load_steps=11 format=3 uid="uid://bsp4emojq7mfx"]
+
+[ext_resource type="Script" path="res://scenes/car.gd" id="1_est55"]
+[ext_resource type="PackedScene" uid="uid://cetyb8w1pxkke" path="res://assets/models/cars/sedan-sports.glb" id="2_g83uc"]
+[ext_resource type="PackedScene" uid="uid://p0mkrgrkys7v" path="res://scenes/Cars/exhaust_pipe.tscn" id="3_ognot"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbqge"]
+size = Vector3(1.4, 1.4, 2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14w5v"]
+size = Vector3(0.2, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14qpr"]
+albedo_color = Color(0.648078, 0.648078, 0.648078, 1)
+emission = Color(1, 0.745098, 0.376471, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kg3ps"]
+albedo_color = Color(0.647059, 0.647059, 0.647059, 1)
+emission = Color(1, 0.746031, 0.3746, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_peibk"]
+size = Vector3(0.3, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_via6q"]
+albedo_color = Color(0.278415, 3.50452e-07, 9.62615e-08, 1)
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vsf1t"]
+
+[node name="Car_04" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_est55")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.953559, -0.0436175)
+shape = SubResource("BoxShape3D_sbqge")
+
+[node name="sedan-sports" parent="." instance=ExtResource("2_g83uc")]
+
+[node name="Illumination" type="Node3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="Left_Headlight" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409952, 0.520984, 1.11478)
+mesh = SubResource("BoxMesh_14w5v")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_14qpr")
+
+[node name="LeftLight" type="SpotLight3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, -0.92043, 0.390908, 0, -0.390908, -0.92043, 0.416349, 0.559121, 1.23858)
+visible = false
+light_color = Color(1, 0.745098, 0.376471, 1)
+light_energy = 8.0
+light_specular = 1.472
+shadow_enabled = true
+spot_range = 4.92224
+spot_angle = 16.3181
+
+[node name="Right_Headlight" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41, 0.521, 1.1149)
+mesh = SubResource("BoxMesh_14w5v")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kg3ps")
+
+[node name="RightLight" type="SpotLight3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, -0.92043, 0.390908, 0, -0.390908, -0.92043, -0.41, 0.559, 1.2389)
+visible = false
+light_color = Color(1, 0.745098, 0.376471, 1)
+light_energy = 8.0
+light_specular = 1.472
+shadow_enabled = true
+spot_range = 4.92224
+spot_angle = 16.3181
+
+[node name="BackLeft_Light" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0.555, -1.214)
+mesh = SubResource("BoxMesh_peibk")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_via6q")
+
+[node name="BackRight_Light" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38, 0.554, -1.215)
+mesh = SubResource("BoxMesh_peibk")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_via6q")
+
+[node name="FrontDetector" type="Area3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.672649, 2.22842)
+collision_layer = 8
+collision_mask = 14
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontDetector"]
+shape = SubResource("BoxShape3D_vsf1t")
+
+[node name="StuckTimer" type="Timer" parent="."]
+
+[node name="Exhaust Pipe" parent="." instance=ExtResource("3_ognot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.560872, 0.332002, -1.51488)
+
+[node name="GPUParticles3D" parent="Exhaust Pipe" index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.111028, -0.0345124, -0.0851302)
+
+[node name="Exhaust Pipe2" parent="." instance=ExtResource("3_ognot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.569035, 0.332002, -1.51488)
+
+[node name="GPUParticles3D" parent="Exhaust Pipe2" index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.109789, -0.0345124, -0.0851302)
+
+[connection signal="body_entered" from="FrontDetector" to="." method="_on_front_detector_body_entered"]
+[connection signal="body_exited" from="FrontDetector" to="." method="_on_front_detector_body_exited"]
+[connection signal="timeout" from="StuckTimer" to="." method="_on_stuck_timer_timeout"]
+
+[editable path="Exhaust Pipe"]
+[editable path="Exhaust Pipe2"]

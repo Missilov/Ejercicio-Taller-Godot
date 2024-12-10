@@ -1,0 +1,57 @@
+[gd_scene load_steps=14 format=3 uid="uid://ba4oit5te3x1u"]
+
+[ext_resource type="Script" path="res://scenes/civilian_npc.gd" id="1_ta6hl"]
+[ext_resource type="Script" path="res://scenes/civilian_ray.gd" id="2_xi3pg"]
+[ext_resource type="PackedScene" uid="uid://dt2k200n1nyqe" path="res://scenes/CivilSkins/Female-b.tscn" id="3_qktde"]
+[ext_resource type="PackedScene" uid="uid://fddd1r3dg53k" path="res://scenes/CivilSkins/Female-c.tscn" id="4_5yqxa"]
+[ext_resource type="PackedScene" uid="uid://d1prv870cdv3o" path="res://scenes/CivilSkins/Female-d.tscn" id="5_o32jw"]
+[ext_resource type="PackedScene" uid="uid://dlr2p3i71gbmh" path="res://scenes/CivilSkins/Female-e.tscn" id="6_cvtwm"]
+[ext_resource type="PackedScene" uid="uid://cbgbq27kvg663" path="res://scenes/CivilSkins/Female-f.tscn" id="7_hid6m"]
+[ext_resource type="PackedScene" uid="uid://vuygj1gs77b6" path="res://scenes/CivilSkins/Male-a.tscn" id="8_iimpx"]
+[ext_resource type="PackedScene" uid="uid://cn5wt58ugwibn" path="res://scenes/CivilSkins/Male-b.tscn" id="9_u7c66"]
+[ext_resource type="PackedScene" uid="uid://cmhwqhycvxlas" path="res://scenes/CivilSkins/Male-d.tscn" id="10_jpdna"]
+[ext_resource type="PackedScene" uid="uid://cmmtlendo132l" path="res://scenes/CivilSkins/Male-e.tscn" id="11_8q2qg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ebxoe"]
+radius = 0.22
+height = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecu1x"]
+size = Vector3(0.5, 0.5, 1)
+
+[node name="Civilian_NPC" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44514, 0)
+collision_layer = 4
+collision_mask = 15
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_ta6hl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.96046e-08, 0)
+shape = SubResource("CapsuleShape3D_ebxoe")
+
+[node name="CivilianRay" type="RayCast3D" parent="."]
+script = ExtResource("2_xi3pg")
+
+[node name="SkinCatalogue" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("Female-b", "Female-c", "Female-d", "Female-e", "Female-f", "Male-a", "Male-b", "Male-d", "Male-e"), [ExtResource("3_qktde"), ExtResource("4_5yqxa"), ExtResource("5_o32jw"), ExtResource("6_cvtwm"), ExtResource("7_hid6m"), ExtResource("8_iimpx"), ExtResource("9_u7c66"), ExtResource("10_jpdna"), ExtResource("11_8q2qg")]]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.300135)
+shape = SubResource("BoxShape3D_ecu1x")
+
+[node name="Despawn_Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="Despawn_Timer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

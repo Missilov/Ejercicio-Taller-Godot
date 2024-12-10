@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvpv8qv2ojhug"]
+
+[ext_resource type="Script" path="res://scenes/npc_nav_point.gd" id="1_r774m"]
+[ext_resource type="PackedScene" uid="uid://ba4oit5te3x1u" path="res://scenes/civilian_npc.tscn" id="2_by427"]
+[ext_resource type="PackedScene" uid="uid://d4h4ifgnjne1k" path="res://scenes/police_agent.tscn" id="3_q7pgh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_irbgj"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig6jo"]
+transparency = 1
+albedo_color = Color(0.313726, 0, 0.627451, 0.745098)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sq3dn"]
+material = SubResource("StandardMaterial3D_ig6jo")
+size = Vector3(1, 0.5, 1)
+
+[node name="NPC_NavPoint" type="Node3D"]
+script = ExtResource("1_r774m")
+civilNPC = ExtResource("2_by427")
+policeNPC = ExtResource("3_q7pgh")
+
+[node name="NPC_Detector" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00850254, 0)
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPC_Detector"]
+shape = SubResource("BoxShape3D_irbgj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NPC_Detector/CollisionShape3D"]
+mesh = SubResource("BoxMesh_sq3dn")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00850254, 0)
+aabb = AABB(-0.5, -0.25, -0.5, 1, 0.5, 1)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="NPC_Detector" to="." method="_on_npc_detector_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

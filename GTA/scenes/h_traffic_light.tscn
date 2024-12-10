@@ -1,0 +1,111 @@
+[gd_scene load_steps=18 format=3 uid="uid://ghaynlpb4ivt"]
+
+[ext_resource type="Script" path="res://scenes/traffic_light.gd" id="1_nqgho"]
+[ext_resource type="Script" path="res://scenes/red_bulb.gd" id="2_mh5wh"]
+[ext_resource type="Script" path="res://scenes/yellow_bulb.gd" id="3_kplvc"]
+[ext_resource type="Script" path="res://scenes/green_bulb.gd" id="4_60r2q"]
+[ext_resource type="Script" path="res://scenes/tl_car_stopper.gd" id="5_y0tav"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2u5j1"]
+albedo_color = Color(0.129558, 0.129558, 0.129558, 1)
+metallic = 0.85
+roughness = 0.65
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ic1ru"]
+material = SubResource("StandardMaterial3D_2u5j1")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 2.5
+radial_segments = 8
+rings = 1
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fcnov"]
+data = PackedVector3Array(0, 1.25, 0.05, 0.0354, 1.25, 0.0354, 0, 0, 0.05, 0.0354, 1.25, 0.0354, 0.0354, 0, 0.0354, 0, 0, 0.05, 0.0354, 1.25, 0.0354, 0.05, 1.25, 0, 0.0354, 0, 0.0354, 0.05, 1.25, 0, 0.05, 0, 0, 0.0354, 0, 0.0354, 0.05, 1.25, 0, 0.0354, 1.25, -0.0354, 0.05, 0, 0, 0.0354, 1.25, -0.0354, 0.0354, 0, -0.0354, 0.05, 0, 0, 0.0354, 1.25, -0.0354, 0, 1.25, -0.05, 0.0354, 0, -0.0354, 0, 1.25, -0.05, 0, 0, -0.05, 0.0354, 0, -0.0354, 0, 1.25, -0.05, -0.0354, 1.25, -0.0354, 0, 0, -0.05, -0.0354, 1.25, -0.0354, -0.0354, 0, -0.0354, 0, 0, -0.05, -0.0354, 1.25, -0.0354, -0.05, 1.25, 0, -0.0354, 0, -0.0354, -0.05, 1.25, 0, -0.05, 0, 0, -0.0354, 0, -0.0354, -0.05, 1.25, 0, -0.0354, 1.25, 0.0354, -0.05, 0, 0, -0.0354, 1.25, 0.0354, -0.0354, 0, 0.0354, -0.05, 0, 0, -0.0354, 1.25, 0.0354, 0, 1.25, 0.05, -0.0354, 0, 0.0354, 0, 1.25, 0.05, 0, 0, 0.05, -0.0354, 0, 0.0354, 0, 0, 0.05, 0.0354, 0, 0.0354, 0, -1.25, 0.05, 0.0354, 0, 0.0354, 0.0354, -1.25, 0.0354, 0, -1.25, 0.05, 0.0354, 0, 0.0354, 0.05, 0, 0, 0.0354, -1.25, 0.0354, 0.05, 0, 0, 0.05, -1.25, 0, 0.0354, -1.25, 0.0354, 0.05, 0, 0, 0.0354, 0, -0.0354, 0.05, -1.25, 0, 0.0354, 0, -0.0354, 0.0354, -1.25, -0.0354, 0.05, -1.25, 0, 0.0354, 0, -0.0354, 0, 0, -0.05, 0.0354, -1.25, -0.0354, 0, 0, -0.05, 0, -1.25, -0.05, 0.0354, -1.25, -0.0354, 0, 0, -0.05, -0.0354, 0, -0.0354, 0, -1.25, -0.05, -0.0354, 0, -0.0354, -0.0354, -1.25, -0.0354, 0, -1.25, -0.05, -0.0354, 0, -0.0354, -0.05, 0, 0, -0.0354, -1.25, -0.0354, -0.05, 0, 0, -0.05, -1.25, 0, -0.0354, -1.25, -0.0354, -0.05, 0, 0, -0.0354, 0, 0.0354, -0.05, -1.25, 0, -0.0354, 0, 0.0354, -0.0354, -1.25, 0.0354, -0.05, -1.25, 0, -0.0354, 0, 0.0354, 0, 0, 0.05, -0.0354, -1.25, 0.0354, 0, 0, 0.05, 0, -1.25, 0.05, -0.0354, -1.25, 0.0354, 0, 1.25, 0, 0.0354, 1.25, 0.0354, 0, 1.25, 0.05, 0, 1.25, 0, 0.05, 1.25, 0, 0.0354, 1.25, 0.0354, 0, 1.25, 0, 0.0354, 1.25, -0.0354, 0.05, 1.25, 0, 0, 1.25, 0, 0, 1.25, -0.05, 0.0354, 1.25, -0.0354, 0, 1.25, 0, -0.0354, 1.25, -0.0354, 0, 1.25, -0.05, 0, 1.25, 0, -0.05, 1.25, 0, -0.0354, 1.25, -0.0354, 0, 1.25, 0, -0.0354, 1.25, 0.0354, -0.05, 1.25, 0, 0, 1.25, 0, 0, 1.25, 0.05, -0.0354, 1.25, 0.0354, 0, -1.25, 0, 0, -1.25, 0.05, 0.0354, -1.25, 0.0354, 0, -1.25, 0, 0.0354, -1.25, 0.0354, 0.05, -1.25, 0, 0, -1.25, 0, 0.05, -1.25, 0, 0.0354, -1.25, -0.0354, 0, -1.25, 0, 0.0354, -1.25, -0.0354, 0, -1.25, -0.05, 0, -1.25, 0, 0, -1.25, -0.05, -0.0354, -1.25, -0.0354, 0, -1.25, 0, -0.0354, -1.25, -0.0354, -0.05, -1.25, 0, 0, -1.25, 0, -0.05, -1.25, 0, -0.0354, -1.25, 0.0354, 0, -1.25, 0, -0.0354, -1.25, 0.0354, 0, -1.25, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxxit"]
+albedo_color = Color(0.327299, 0.327299, 0.327299, 1)
+metallic = 0.8
+roughness = 0.62
+
+[sub_resource type="BoxMesh" id="BoxMesh_3xsf8"]
+material = SubResource("StandardMaterial3D_nxxit")
+size = Vector3(0.3, 0.9, 0.3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3iwfi"]
+radius = 0.1
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h4k7"]
+albedo_color = Color(0.187904, 2.28621e-07, 3.00817e-08, 1)
+roughness = 0.3
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_u6sfq"]
+radius = 0.1
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mk27a"]
+albedo_color = Color(0.170973, 0.090274, 0, 1)
+roughness = 0.3
+emission = Color(0.804374, 0.501081, 3.85046e-07, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_48b6s"]
+radius = 0.1
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjlov"]
+albedo_color = Color(2.25613e-08, 0.157041, 9.62615e-08, 1)
+roughness = 0.3
+emission = Color(1.13107e-06, 0.594167, 1.54018e-06, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5x07"]
+
+[node name="H_TrafficLight" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_nqgho")
+
+[node name="Post" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_ic1ru")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Post"]
+collision_mask = 14
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Post/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fcnov")
+
+[node name="LightsBox" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34069, 0)
+mesh = SubResource("BoxMesh_3xsf8")
+
+[node name="RedLight" type="MeshInstance3D" parent="LightsBox"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.274969, 0.146364)
+mesh = SubResource("SphereMesh_3iwfi")
+surface_material_override/0 = SubResource("StandardMaterial3D_5h4k7")
+script = ExtResource("2_mh5wh")
+
+[node name="YellowLight" type="MeshInstance3D" parent="LightsBox"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.145958)
+mesh = SubResource("SphereMesh_u6sfq")
+surface_material_override/0 = SubResource("StandardMaterial3D_mk27a")
+script = ExtResource("3_kplvc")
+
+[node name="GreenLight" type="MeshInstance3D" parent="LightsBox"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.275, 0.146364)
+mesh = SubResource("SphereMesh_48b6s")
+surface_material_override/0 = SubResource("StandardMaterial3D_fjlov")
+script = ExtResource("4_60r2q")
+
+[node name="CarStop" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.819569, 5)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_y0tav")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarStop"]
+shape = SubResource("BoxShape3D_h5x07")
+
+[connection signal="body_entered" from="CarStop" to="CarStop" method="_on_body_entered"]
+[connection signal="body_exited" from="CarStop" to="CarStop" method="_on_body_exited"]

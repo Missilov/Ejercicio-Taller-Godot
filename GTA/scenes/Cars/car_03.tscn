@@ -1,0 +1,176 @@
+[gd_scene load_steps=18 format=3 uid="uid://bag6glfd4mfr3"]
+
+[ext_resource type="Script" path="res://scenes/car.gd" id="1_1ieue"]
+[ext_resource type="PackedScene" uid="uid://cxk1ee62l5abw" path="res://assets/models/cars/taxi.glb" id="2_jupl2"]
+[ext_resource type="Texture2D" uid="uid://hmp0o0v3cuk8" path="res://assets/textures/smoke_texture.png" id="3_ruchf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i7sih"]
+size = Vector3(1.6, 1.5, 3.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0l0ko"]
+size = Vector3(0.2, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h011p"]
+albedo_color = Color(0.648078, 0.648078, 0.648078, 1)
+emission = Color(1, 0.745098, 0.376471, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fj8xh"]
+albedo_color = Color(0.647059, 0.647059, 0.647059, 1)
+emission = Color(1, 0.746031, 0.3746, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6f74"]
+size = Vector3(0.3, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2sqdx"]
+albedo_color = Color(0.278415, 3.50452e-07, 9.62615e-08, 1)
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_35al4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h587r"]
+albedo_color = Color(0.444843, 0.444843, 0.444843, 1)
+metallic = 1.0
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r7xyx"]
+material = SubResource("StandardMaterial3D_h587r")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qiqh"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h1a5a"]
+material = SubResource("StandardMaterial3D_1qiqh")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvjgd"]
+direction = Vector3(0, 0, 1)
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 181.26
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0.2, -1.5)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+turbulence_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uurol"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.760297, 0.760297, 0.760297, 1)
+albedo_texture = ExtResource("3_ruchf")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+grow = true
+grow_amount = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_xet2e"]
+material = SubResource("StandardMaterial3D_uurol")
+size = Vector2(0.2, 0.2)
+
+[node name="Car_03" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_1ieue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.887285, 0)
+shape = SubResource("BoxShape3D_i7sih")
+
+[node name="taxi" parent="." instance=ExtResource("2_jupl2")]
+
+[node name="Illumination" type="Node3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="Left_Headlight" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.745531, 1.21329)
+mesh = SubResource("BoxMesh_0l0ko")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_h011p")
+
+[node name="LeftLight" type="SpotLight3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, -0.92043, 0.390908, 0, -0.390908, -0.92043, 0.4, 0.783668, 1.33709)
+visible = false
+light_color = Color(1, 0.745098, 0.376471, 1)
+light_energy = 8.0
+light_specular = 1.472
+shadow_enabled = true
+spot_range = 4.92224
+spot_angle = 16.3181
+
+[node name="Right_Headlight" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.745547, 1.21341)
+mesh = SubResource("BoxMesh_0l0ko")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_fj8xh")
+
+[node name="RightLight" type="SpotLight3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, -0.92043, 0.390908, 0, -0.390908, -0.92043, -0.4, 0.783547, 1.33741)
+visible = false
+light_color = Color(1, 0.745098, 0.376471, 1)
+light_energy = 8.0
+light_specular = 1.472
+shadow_enabled = true
+spot_range = 4.92224
+spot_angle = 16.3181
+
+[node name="BackLeft_Light" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.396592, 0.646376, -1.31757)
+mesh = SubResource("BoxMesh_o6f74")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2sqdx")
+
+[node name="BackRight_Light" type="MeshInstance3D" parent="Illumination"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.397, 0.646, -1.31784)
+mesh = SubResource("BoxMesh_o6f74")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2sqdx")
+
+[node name="FrontDetector" type="Area3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.739666, 2.65133)
+collision_layer = 8
+collision_mask = 14
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontDetector"]
+shape = SubResource("BoxShape3D_35al4")
+
+[node name="StuckTimer" type="Timer" parent="."]
+
+[node name="Exhaust Pipe" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526261, 0.321606, -1.63902)
+
+[node name="PrimaryPipe" type="MeshInstance3D" parent="Exhaust Pipe"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_r7xyx")
+
+[node name="SecondaryPipe" type="MeshInstance3D" parent="Exhaust Pipe/PrimaryPipe"]
+transform = Transform3D(0.604057, 0, 0, 0, 1, 0, 0, 0, 0.614364, 0, -0.00328571, 1.43623e-10)
+mesh = SubResource("CylinderMesh_h1a5a")
+skeleton = NodePath("../..")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Exhaust Pipe"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0818271, -0.00751108, -0.14168)
+cast_shadow = 0
+lifetime = 0.5
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_rvjgd")
+draw_pass_1 = SubResource("QuadMesh_xet2e")
+
+[connection signal="body_entered" from="FrontDetector" to="." method="_on_front_detector_body_entered"]
+[connection signal="body_exited" from="FrontDetector" to="." method="_on_front_detector_body_exited"]
+[connection signal="timeout" from="StuckTimer" to="." method="_on_stuck_timer_timeout"]
+
+[editable path="taxi"]

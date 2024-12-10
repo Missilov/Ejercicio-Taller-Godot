@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd47jnsrq5ygm"]
+
+[ext_resource type="Script" path="res://scenes/busted_menu.gd" id="1_dtuvy"]
+
+[node name="Busted_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dtuvy")
+
+[node name="start" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = 120.0
+offset_right = 159.0
+offset_bottom = 193.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 35
+text = "Volver al menú"
+
+[node name="title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -218.0
+offset_top = 152.0
+offset_right = 238.0
+offset_bottom = 361.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.796078, 0.576471, 0.113725, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 75
+text = "TE HAN
+ARRESTADO!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]

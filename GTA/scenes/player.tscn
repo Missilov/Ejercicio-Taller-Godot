@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkyl2lcg5e0ki"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_ilqqv"]
+[ext_resource type="PackedScene" uid="uid://dgw4j3yaapwva" path="res://assets/models/characters/character-male-f.glb" id="2_pnchw"]
+[ext_resource type="PackedScene" uid="uid://cyfeifp6cavyw" path="res://scenes/bullet.tscn" id="3_b3x81"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_khwvh"]
+radius = 0.22
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_cqaqf"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvsoe"]
+emission_enabled = true
+emission = Color(1, 0.980392, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5m6e7"]
+height = 0.5
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.993001, 0)
+collision_layer = 2
+collision_mask = 159
+script = ExtResource("1_ilqqv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.546764, 0)
+shape = SubResource("CapsuleShape3D_khwvh")
+
+[node name="Body" parent="." instance=ExtResource("2_pnchw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.98848, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98848, 1.17189)
+visible = false
+mesh = SubResource("SphereMesh_cqaqf")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_jvsoe")
+
+[node name="AMMO" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("bullet"), [ExtResource("3_b3x81")]]
+
+[node name="TheftArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheftArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.56947, 0)
+shape = SubResource("CylinderShape3D_5m6e7")
+
+[connection signal="body_entered" from="TheftArea" to="." method="_on_theft_area_body_entered"]
+[connection signal="body_exited" from="TheftArea" to="." method="_on_theft_area_body_exited"]
+
+[editable path="Body"]

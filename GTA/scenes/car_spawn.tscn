@@ -1,0 +1,27 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg5kch0gowf5e"]
+
+[ext_resource type="Script" path="res://scenes/Vehicle_spawn.gd" id="1_es7td"]
+[ext_resource type="PackedScene" uid="uid://d2mxmw748im8" path="res://scenes/Cars/car_01.tscn" id="2_ftxmb"]
+[ext_resource type="PackedScene" uid="uid://ly33si8hk6mv" path="res://scenes/Cars/car_02.tscn" id="3_wlxne"]
+[ext_resource type="PackedScene" uid="uid://bag6glfd4mfr3" path="res://scenes/Cars/car_03.tscn" id="4_iqusd"]
+[ext_resource type="PackedScene" uid="uid://bsp4emojq7mfx" path="res://scenes/Cars/car_04.tscn" id="5_2kucn"]
+[ext_resource type="PackedScene" uid="uid://b7qwuldvhmfcn" path="res://scenes/Cars/car_05.tscn" id="6_et54q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ereag"]
+size = Vector3(3, 1, 3)
+
+[node name="CarSpawn" type="Marker3D"]
+script = ExtResource("1_es7td")
+
+[node name="FreeSpace Detector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FreeSpace Detector"]
+shape = SubResource("BoxShape3D_ereag")
+
+[node name="CarCatalogue" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("car_01", "car_02", "car_03", "car_04", "car_05"), [ExtResource("2_ftxmb"), ExtResource("3_wlxne"), ExtResource("4_iqusd"), ExtResource("5_2kucn"), ExtResource("6_et54q")]]
+
+[connection signal="body_entered" from="FreeSpace Detector" to="." method="_on_free_space_detector_body_entered"]
+[connection signal="body_exited" from="FreeSpace Detector" to="." method="_on_free_space_detector_body_exited"]

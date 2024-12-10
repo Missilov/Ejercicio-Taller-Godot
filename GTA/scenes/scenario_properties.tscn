@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqjufjncabf7f"]
+
+[ext_resource type="Script" path="res://scenes/scenario_properties.gd" id="1_epbai"]
+
+[node name="ScenarioProperties" type="Node"]
+script = ExtResource("1_epbai")
+
+[node name="TrafficLight_Timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
